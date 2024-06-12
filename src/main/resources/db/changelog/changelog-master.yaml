@@ -1,6 +1,168 @@
 databaseChangeLog:
   - changeSet:
       id: 1
-      author: yourname
+      author: David Sapozhnik
       changes:
-        - empty:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_number
+                  type: varchar(12)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: balance
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: David Sapozhnik
+      changes:
+        - createTable:
+            tableName: transaction
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: target_account_id
+                  type: uuid
+                  constraints:
+                    nullable: true
+              - column:
+                  name: type
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(19, 4)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timestamp
+                  type: timestamp
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: transaction
+            baseColumnNames: account_id
+            referencedTableName: account
+            constraintName: fk_transaction_account_id
+            referencedColumnNames: id
+
+        - addForeignKeyConstraint:
+            baseTableName: transaction
+            baseColumnNames: target_account_id
+            referencedTableName: account
+            constraintName: fk_transaction_target_account_id
+            referencedColumnNames: id
+
+  - changeSet:
+      id: 3
+      author: David Sapozhnik
+      changes:
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  value: 1e3f1e2b-40f0-4a3d-9f1b-0b7a68db9475
+              - column:
+                  name: account_number
+                  value: '123456789012'
+              - column:
+                  name: balance
+                  value: 1000.00
+              - column:
+                  name: created_at
+                  valueDate: 2024-01-01T00:00:00
+              - column:
+                  name: updated_at
+                  valueDate: 2024-01-01T00:00:00
+
+        - insert:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  value: 2e3f1e2b-40f0-4a3d-9f1b-0b7a68db9476
+              - column:
+                  name: account_number
+                  value: '123456789013'
+              - column:
+                  name: balance
+                  value: 2000.00
+              - column:
+                  name: created_at
+                  valueDate: 2024-01-01T00:00:00
+              - column:
+                  name: updated_at
+                  valueDate: 2024-01-01T00:00:00
+
+        - insert:
+            tableName: transaction
+            columns:
+              - column:
+                  name: id
+                  value: 3e4f1e2b-40f0-4a3d-9f1b-0b7a68db9477
+              - column:
+                  name: account_id
+                  value: 1e3f1e2b-40f0-4a3d-9f1b-0b7a68db9475
+              - column:
+                  name: type
+                  value: 'DEPOSIT'
+              - column:
+                  name: amount
+                  value: 500.00
+              - column:
+                  name: timestamp
+                  valueDate: 2024-01-01T12:00:00
+
+        - insert:
+            tableName: transaction
+            columns:
+              - column:
+                  name: id
+                  value: 4e5f1e2b-40f0-4a3d-9f1b-0b7a68db9478
+              - column:
+                  name: account_id
+                  value: 2e3f1e2b-40f0-4a3d-9f1b-0b7a68db9476
+              - column:
+                  name: type
+                  value: 'WITHDRAW'
+              - column:
+                  name: amount
+                  value: 300.00
+              - column:
+                  name: timestamp
+                  valueDate: 2024-01-01T13:00:00
