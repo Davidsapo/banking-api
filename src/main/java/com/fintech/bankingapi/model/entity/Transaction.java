@@ -36,7 +36,7 @@ public class Transaction {
     private Account targetAccount;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private TransactionType type;
 
     @Column(nullable = false)

@@ -1,4 +1,4 @@
-package com.fintech.bankingapi.service;
+package com.fintech.bankingapi.service.account;
 
 import com.fintech.bankingapi.model.dto.AccountDTO;
 import com.fintech.bankingapi.model.dto.DetailedAccountDTO;

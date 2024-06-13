@@ -1,4 +1,4 @@
-package com.fintech.bankingapi.service.impl;
+package com.fintech.bankingapi.service.account.impl;
 
 import com.fintech.bankingapi.converter.AccountConverter;
 import com.fintech.bankingapi.exceptions.impl.AccountNotFoundException;
@@ -7,7 +7,7 @@ import com.fintech.bankingapi.model.dto.DetailedAccountDTO;
 import com.fintech.bankingapi.model.entity.Account;
 import com.fintech.bankingapi.model.entity.Transaction;
 import com.fintech.bankingapi.repository.AccountRepository;
-import com.fintech.bankingapi.service.AccountService;
+import com.fintech.bankingapi.service.account.AccountService;
 import com.fintech.bankingapi.utils.AccountNumberGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
