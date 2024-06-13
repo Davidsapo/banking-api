@@ -1,4 +1,4 @@
-package com.fintech.bankingapi.controller;
+package com.fintech.bankingapi.api.controller;
 
 import com.fintech.bankingapi.model.PaginatedResponse;
 import com.fintech.bankingapi.model.dto.AccountDTO;

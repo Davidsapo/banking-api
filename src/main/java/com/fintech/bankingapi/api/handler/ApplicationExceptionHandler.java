@@ -1,4 +1,4 @@
-package com.fintech.bankingapi.handler;
+package com.fintech.bankingapi.api.handler;
 
 import com.fintech.bankingapi.exceptions.CustomExceptionBody;
 import com.fintech.bankingapi.exceptions.CustomUncheckedException;
