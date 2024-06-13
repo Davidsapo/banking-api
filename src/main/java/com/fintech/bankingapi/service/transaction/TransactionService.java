@@ -8,7 +8,7 @@ import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 
-public abstract class AbstractTransactionService {
+public abstract class TransactionService {
 
     @Autowired
     protected TransactionRepository transactionRepository;

@@ -1,4 +1,4 @@
-package com.fintech.bankingapi.model.request;
+package com.fintech.bankingapi.model.request.acount;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

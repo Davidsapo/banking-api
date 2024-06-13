@@ -2,7 +2,7 @@ package com.fintech.bankingapi.api.controller;
 
 import com.fintech.bankingapi.model.PaginatedResponse;
 import com.fintech.bankingapi.model.dto.AccountDTO;
-import com.fintech.bankingapi.model.request.AccountCreationRequest;
+import com.fintech.bankingapi.model.request.acount.AccountCreationRequest;
 import com.fintech.bankingapi.service.account.AccountService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
