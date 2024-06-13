@@ -14,5 +14,9 @@ public interface AccountService {
     DetailedAccountDTO getAccountByAccountNumber(String accountNumber);
 
     Page<AccountDTO> getAllAccounts(Pageable pageable);
+
+    AccountDTO depositBalance(String accountNumber, BigDecimal amount);
+
+    AccountDTO withdrawBalance(String accountNumber, BigDecimal amount);
 }
 
