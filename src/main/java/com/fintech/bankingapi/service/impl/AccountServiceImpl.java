@@ -9,6 +9,7 @@ import com.fintech.bankingapi.model.entity.Transaction;
 import com.fintech.bankingapi.repository.AccountRepository;
 import com.fintech.bankingapi.service.AccountService;
 import com.fintech.bankingapi.utils.AccountNumberGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -26,6 +27,7 @@ import static com.fintech.bankingapi.converter.AccountConverter.convertToDTO;
 import static com.fintech.bankingapi.converter.AccountConverter.convertToDTOs;
 import static com.fintech.bankingapi.enums.TransactionType.DEPOSIT;
 
+@Slf4j
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -39,13 +41,16 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public AccountDTO createAccount(BigDecimal initialBalance) {
+        log.debug("Creating account with initial balance: {}", initialBalance);
         Account account = initializeAccount(initialBalance);
 
         if (initialBalance.compareTo(BigDecimal.ZERO) > 0) {
+            log.debug("Creating initial transaction for account: {}", account.getAccountNumber());
             createInitialTransaction(account, initialBalance);
         }
 
         account = accountRepository.save(account);
+        log.info("Account created successfully: {}", account.getAccountNumber());
         return convertToDTO(account);
     }
 
