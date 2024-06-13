@@ -3,6 +3,7 @@ package com.fintech.bankingapi.service.impl;
 import com.fintech.bankingapi.converter.AccountConverter;
 import com.fintech.bankingapi.exceptions.impl.AccountNotFoundException;
 import com.fintech.bankingapi.model.dto.AccountDTO;
+import com.fintech.bankingapi.model.dto.DetailedAccountDTO;
 import com.fintech.bankingapi.model.entity.Account;
 import com.fintech.bankingapi.model.entity.Transaction;
 import com.fintech.bankingapi.repository.AccountRepository;
@@ -50,9 +51,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional(readOnly = true)
-    public AccountDTO getAccountByAccountNumber(String accountNumber) {
+    public DetailedAccountDTO getAccountByAccountNumber(String accountNumber) {
         return accountRepository.findByAccountNumber(accountNumber)
-                .map(AccountConverter::convertToDTO)
+                .map(AccountConverter::convertToDetailedDTO)
                 .orElseThrow(() -> new AccountNotFoundException(Map.of("accountNumber", accountNumber)));
     }
 

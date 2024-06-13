@@ -1,6 +1,7 @@
 package com.fintech.bankingapi.converter;
 
 import com.fintech.bankingapi.model.dto.AccountDTO;
+import com.fintech.bankingapi.model.dto.DetailedAccountDTO;
 import com.fintech.bankingapi.model.entity.Account;
 
 import java.util.Collection;
@@ -12,7 +13,10 @@ import java.util.stream.Collectors;
  *
  * @author David Sapozhnik
  */
-public class AccountConverter {
+public final class AccountConverter {
+
+    private AccountConverter() {
+    }
 
     public static AccountDTO convertToDTO(Account account) {
         AccountDTO accountDTO = new AccountDTO();
@@ -28,5 +32,16 @@ public class AccountConverter {
         return accounts.stream()
                 .map(AccountConverter::convertToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public static DetailedAccountDTO convertToDetailedDTO(Account account) {
+        DetailedAccountDTO detailedAccountDTO = new DetailedAccountDTO();
+        detailedAccountDTO.setId(account.getId());
+        detailedAccountDTO.setAccountNumber(account.getAccountNumber());
+        detailedAccountDTO.setBalance(account.getBalance());
+        detailedAccountDTO.setCreatedAt(account.getCreatedAt());
+        detailedAccountDTO.setUpdatedAt(account.getUpdatedAt());
+        detailedAccountDTO.getTransactions().addAll(TransactionConverter.convertToDTOs(account.getTransactions()));
+        return detailedAccountDTO;
     }
 }
