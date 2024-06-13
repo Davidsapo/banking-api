@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -41,6 +42,7 @@ public class Transaction {
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime timestamp;
 }
