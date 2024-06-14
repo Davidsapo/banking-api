@@ -5,7 +5,7 @@ import com.fintech.bankingapi.model.dto.TransactionDTO;
 import com.fintech.bankingapi.model.request.transaction.DepositTransactionCreationRequest;
 import com.fintech.bankingapi.model.request.transaction.TransferTransactionCreationRequest;
 import com.fintech.bankingapi.model.request.transaction.WithdrawTransactionCreationRequest;
-import com.fintech.bankingapi.service.transaction.TransactionService;
+import com.fintech.bankingapi.service.operation.BankOperation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,33 +26,33 @@ import static com.fintech.bankingapi.enums.TransactionType.WITHDRAW;
 @RequestMapping("/v1/transactions")
 public class TransactionController {
 
-    private final Map<TransactionType, TransactionService> transactionServiceMap;
+    private final Map<TransactionType, BankOperation> operationMap;
 
     @Autowired
-    public TransactionController(Collection<TransactionService> transactionServices) {
-        transactionServiceMap = transactionServices.stream()
-                .collect(Collectors.toMap(TransactionService::getTransactionType, Function.identity()));
+    public TransactionController(Collection<BankOperation> transactionServices) {
+        operationMap = transactionServices.stream()
+                .collect(Collectors.toMap(BankOperation::getTransactionType, Function.identity()));
     }
 
     @PostMapping("/deposit")
     public TransactionDTO deposit(@Valid @RequestBody DepositTransactionCreationRequest request) {
-        return transactionServiceMap
+        return operationMap
                 .get(DEPOSIT)
-                .createTransaction(request.accountNumber(), null, request.amount());
+                .executeOperation(request.accountNumber(), null, request.amount());
     }
 
     @PostMapping("/withdraw")
     public TransactionDTO withdraw(@Valid @RequestBody WithdrawTransactionCreationRequest request) {
-        return transactionServiceMap
+        return operationMap
                 .get(WITHDRAW)
-                .createTransaction(request.accountNumber(), null, request.amount());
+                .executeOperation(request.accountNumber(), null, request.amount());
     }
 
     @PostMapping("/transfer")
     public TransactionDTO transfer(@Valid @RequestBody TransferTransactionCreationRequest request) {
-        return transactionServiceMap
+        return operationMap
                 .get(TRANSFER)
-                .createTransaction(request.accountNumber(), request.targetAccountNumber(), request.amount());
+                .executeOperation(request.accountNumber(), request.targetAccountNumber(), request.amount());
     }
 }
 
