@@ -45,5 +45,9 @@ public class Account {
 
     @OneToMany(mappedBy = "targetAccount", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Transaction> targetTransactions = new ArrayList<>();
+
+    public Account(UUID id) {
+        this.id = id;
+    }
 }
 
