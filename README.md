@@ -9,30 +9,36 @@ This project is a simple REST API for a banking application. It allows users to 
 - **Hibernate/JPA**: For ORM and database interactions.
 - **H2 Database**: An in-memory database used for development and testing.
 - **Lombok**: To reduce boilerplate code.
+- **Slf4j & Logback**: For logging.
 - **Liquibase**: For database migrations.
 - **JUnit & Mockito**: For unit testing.
 
-## Design Choices
+## Design Choices and Patterns
 
-### Controllers
-- **AccountController**: Manages account-related operations like creating and fetching accounts.
-- **TransactionController**: Handles transaction operations like deposits, withdrawals, and transfers.
+**Controller-Service-Repository Pattern:**
+  - The application follows the standard pattern to separate concerns:
+    - **Controllers:** Handle HTTP requests and responses.
+    - **Services:** Contain business logic.
+    - **Repositories:** Interact with the database.
 
-### Services
-- **AccountService**: Contains business logic for account operations.
-- **TransactionService**: Contains business logic for transaction operations.
+**Exception Handling:**
+  - A global exception handler (`ApplicationExceptionHandler`) manages various exceptions and provides meaningful error responses.
 
-### Exception Handling
-- **ApplicationExceptionHandler**: A centralized exception handler that catches and processes various exceptions.
+**DTOs:**
+  - Data Transfer Objects are used to transfer data between layers, ensuring separation of concerns and preventing direct entity exposure.
 
-### Database
-- **Account and Transaction Entities**: Represent the data model.
-- **AccountRepository**: For database operations on the Account entity.
-- **TransactionRepository**: For database operations on the Transaction entity.
+**Transactions:**
+  - Transactions are managed using Spring's `@Transactional` annotation to ensure data integrity.
 
-### Design Patterns
-- **Strategy Pattern**: Used in `BankOperation` for different transaction types.
-- **DTO Pattern**: Used for transferring data between layers.
+**Pessimistic Locking:**
+- To ensure data consistency and integrity during concurrent operations,
+
+**Paginated Responses:**
+  - The application supports paginated responses for listing accounts, using a custom `PaginatedResponse` class.
+
+**Operation Strategy:**
+  - Different types of transactions (deposit, withdraw, transfer) are handled using the Strategy pattern, encapsulated in `BankOperation` and its concrete implementations.
+
 
 ## Getting Started
 
@@ -64,20 +70,13 @@ This project is a simple REST API for a banking application. It allows users to 
 
 ### Configuration
 
-The application uses an H2 in-memory database by default. The configuration can be found in the `application.yml` file:
+The application uses an H2 in-memory database by default. 
+You can access the H2 console at `http://localhost:8080/h2-console` with the following settings:
 
-```yaml
-spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:banking;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password: password
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-```
+- **JDBC URL**: `jdbc:h2:mem:banking`
+- **Username**: `sa`
+- **Password**: `password`
+- **Driver Class**: `org.h2.Driver`
 
 ## Database Schema
 
