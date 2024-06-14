@@ -26,6 +26,7 @@ import java.util.UUID;
 
 import static com.fintech.bankingapi.converter.AccountConverter.convertToDTO;
 import static com.fintech.bankingapi.converter.AccountConverter.convertToDTOs;
+import static com.fintech.bankingapi.converter.AccountConverter.convertToDetailedDTO;
 import static com.fintech.bankingapi.enums.TransactionType.DEPOSIT;
 
 @Slf4j
@@ -41,7 +42,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public AccountDTO createAccount(BigDecimal initialBalance) {
+    public DetailedAccountDTO createAccount(BigDecimal initialBalance) {
         log.debug("Creating account with initial balance: {}", initialBalance);
         Account account = initializeAccount(initialBalance);
 
@@ -52,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
 
         account = accountRepository.save(account);
         log.info("Account created successfully: {}", account.getAccountNumber());
-        return convertToDTO(account);
+        return convertToDetailedDTO(account);
     }
 
     @Override

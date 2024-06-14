@@ -2,6 +2,7 @@ package com.fintech.bankingapi.api.controller;
 
 import com.fintech.bankingapi.model.PaginatedResponse;
 import com.fintech.bankingapi.model.dto.AccountDTO;
+import com.fintech.bankingapi.model.dto.DetailedAccountDTO;
 import com.fintech.bankingapi.model.request.acount.AccountCreationRequest;
 import com.fintech.bankingapi.service.account.AccountService;
 import jakarta.validation.Valid;
@@ -31,13 +32,13 @@ public class AccountController {
 
     @PostMapping
     public ResponseEntity<AccountDTO> createAccount(@Valid @RequestBody AccountCreationRequest request) {
-        AccountDTO account = accountService.createAccount(request.initialBalance());
+        DetailedAccountDTO account = accountService.createAccount(request.initialBalance());
         return ResponseEntity.status(HttpStatus.CREATED).body(account);
     }
 
     @GetMapping("/{accountNumber}")
-    public ResponseEntity<AccountDTO> getAccountByAccountNumber(@PathVariable @NotBlank String accountNumber) {
-        AccountDTO account = accountService.getAccountByAccountNumber(accountNumber);
+    public ResponseEntity<DetailedAccountDTO> getAccountByAccountNumber(@PathVariable @NotBlank String accountNumber) {
+        DetailedAccountDTO account = accountService.getAccountByAccountNumber(accountNumber);
         return ResponseEntity.ok(account);
     }
 

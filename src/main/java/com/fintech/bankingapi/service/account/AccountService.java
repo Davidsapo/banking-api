@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 public interface AccountService {
 
-    AccountDTO createAccount(BigDecimal initialBalance);
+    DetailedAccountDTO createAccount(BigDecimal initialBalance);
 
     DetailedAccountDTO getAccountByAccountNumber(String accountNumber);
 
