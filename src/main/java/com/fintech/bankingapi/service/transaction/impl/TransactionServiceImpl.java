@@ -23,8 +23,12 @@ import static java.util.Objects.nonNull;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
+    private final TransactionRepository transactionRepository;
+
     @Autowired
-    protected TransactionRepository transactionRepository;
+    public TransactionServiceImpl(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
 
     @Override
     @Transactional
@@ -38,8 +42,8 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setAmount(amount);
         transaction.setTimestamp(LocalDateTime.now());
 
-        Transaction savedTransaction = transactionRepository.save(transaction);
+        transaction = transactionRepository.save(transaction);
         log.info("{} transaction created for account id {}: amount = {}", type, accountId, amount);
-        return convertToDTO(savedTransaction);
+        return convertToDTO(transaction);
     }
 }

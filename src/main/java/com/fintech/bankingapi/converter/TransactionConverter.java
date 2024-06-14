@@ -9,11 +9,6 @@ import java.util.stream.Collectors;
 
 import static java.util.Objects.nonNull;
 
-/**
- * Transaction converter
- *
- * @author David Sapozhnik
- */
 public final class TransactionConverter {
 
     private TransactionConverter() {

@@ -1,6 +1,5 @@
 package com.fintech.bankingapi.model.entity;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

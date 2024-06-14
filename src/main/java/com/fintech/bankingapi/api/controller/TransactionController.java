@@ -8,6 +8,7 @@ import com.fintech.bankingapi.model.request.transaction.WithdrawTransactionCreat
 import com.fintech.bankingapi.service.operation.BankOperation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,24 +36,27 @@ public class TransactionController {
     }
 
     @PostMapping("/deposit")
-    public TransactionDTO deposit(@Valid @RequestBody DepositTransactionCreationRequest request) {
-        return operationMap
+    public ResponseEntity<TransactionDTO> deposit(@Valid @RequestBody DepositTransactionCreationRequest request) {
+        TransactionDTO transaction = operationMap
                 .get(DEPOSIT)
                 .executeOperation(request.accountNumber(), null, request.amount());
+        return ResponseEntity.ok(transaction);
     }
 
     @PostMapping("/withdraw")
-    public TransactionDTO withdraw(@Valid @RequestBody WithdrawTransactionCreationRequest request) {
-        return operationMap
+    public ResponseEntity<TransactionDTO> withdraw(@Valid @RequestBody WithdrawTransactionCreationRequest request) {
+        TransactionDTO transaction = operationMap
                 .get(WITHDRAW)
                 .executeOperation(request.accountNumber(), null, request.amount());
+        return ResponseEntity.ok(transaction);
     }
 
     @PostMapping("/transfer")
-    public TransactionDTO transfer(@Valid @RequestBody TransferTransactionCreationRequest request) {
-        return operationMap
+    public ResponseEntity<TransactionDTO> transfer(@Valid @RequestBody TransferTransactionCreationRequest request) {
+        TransactionDTO transaction = operationMap
                 .get(TRANSFER)
                 .executeOperation(request.accountNumber(), request.targetAccountNumber(), request.amount());
+        return ResponseEntity.ok(transaction);
     }
 }
 

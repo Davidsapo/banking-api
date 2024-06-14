@@ -15,11 +15,6 @@ import java.util.Map;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
-/**
- * Exception handler
- *
- * @author David Sapozhnik
- */
 @Slf4j
 @RestControllerAdvice
 public class ApplicationExceptionHandler {

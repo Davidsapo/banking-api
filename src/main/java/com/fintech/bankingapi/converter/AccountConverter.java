@@ -9,11 +9,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Account converter
- *
- * @author David Sapozhnik
- */
 public final class AccountConverter {
 
     private AccountConverter() {
