@@ -2,7 +2,7 @@
 
 This project is a simple REST API for a banking application. It allows users to create accounts, and perform transactions such as deposits, withdrawals, and transfers.
 
-You can found postman collection [here](./postman/BANKING API.postman_collection.json)
+You can found postman collection in postman folder : [Postman Collection](./postman/Banking%20API.postman_collection.json)
 
 ## Tech Stack
 
