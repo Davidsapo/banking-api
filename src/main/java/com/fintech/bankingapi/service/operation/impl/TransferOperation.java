@@ -24,6 +24,9 @@ public class TransferOperation extends BankOperation {
     public TransactionDTO executeOperation(String accountNumber, String targetAccountNumber, BigDecimal amount) {
         AccountDTO sourceAccount = accountService.withdrawBalance(accountNumber, amount);
         AccountDTO targetAccount = accountService.depositBalance(targetAccountNumber, amount);
-        return transactionService.createTransaction(getTransactionType(), sourceAccount.getId(), targetAccount.getId(), amount);
+        TransactionDTO transaction = transactionService.createTransaction(getTransactionType(), sourceAccount.getId(), targetAccount.getId(), amount);
+        transaction.setAccount(sourceAccount);
+        transaction.setTargetAccount(targetAccount);
+        return transaction;
     }
 }

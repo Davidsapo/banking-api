@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static com.fintech.bankingapi.enums.TransactionType.DEPOSIT;
 
@@ -24,6 +25,8 @@ public class DepositOperation extends BankOperation {
     @Transactional
     public TransactionDTO executeOperation(String accountNumber, @Nullable String targetAccountNumber, BigDecimal amount) {
         AccountDTO account = accountService.depositBalance(accountNumber, amount);
-        return transactionService.createTransaction(getTransactionType(), account.getId(), null, amount);
+        TransactionDTO transaction = transactionService.createTransaction(getTransactionType(), account.getId(), null, amount);
+        transaction.setAccount(account);
+        return transaction;
     }
 }

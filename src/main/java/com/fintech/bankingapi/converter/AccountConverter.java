@@ -3,6 +3,7 @@ package com.fintech.bankingapi.converter;
 import com.fintech.bankingapi.model.dto.AccountDTO;
 import com.fintech.bankingapi.model.dto.DetailedAccountDTO;
 import com.fintech.bankingapi.model.entity.Account;
+import com.fintech.bankingapi.model.entity.Transaction;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,7 +42,11 @@ public final class AccountConverter {
         detailedAccountDTO.setBalance(account.getBalance());
         detailedAccountDTO.setCreatedAt(account.getCreatedAt());
         detailedAccountDTO.setUpdatedAt(account.getUpdatedAt());
-        detailedAccountDTO.getTransactions().addAll(TransactionConverter.convertToDTOs(account.getTransactions()));
+        // Combine all transactions into one list and sort them by timestamp
+        List<Transaction> allTransactions = account.getTransactions();
+        allTransactions.addAll(account.getTargetTransactions());
+        allTransactions.sort((t1, t2) -> t2.getTimestamp().compareTo(t1.getTimestamp()));
+        detailedAccountDTO.getTransactions().addAll(TransactionConverter.convertToDTOs(allTransactions));
         return detailedAccountDTO;
     }
 }

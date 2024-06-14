@@ -113,6 +113,7 @@ public class AccountServiceImpl implements AccountService {
         account.setId(UUID.randomUUID());
         account.setAccountNumber(AccountNumberGenerator.generateAccountNumber());
         account.setBalance(initialBalance);
+        account.setCreatedAt(LocalDateTime.now());
         account.setUpdatedAt(LocalDateTime.now());
         return account;
     }

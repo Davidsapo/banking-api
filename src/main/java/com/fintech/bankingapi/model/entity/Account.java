@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -33,7 +32,6 @@ public class Account {
     @Column(nullable = false)
     private BigDecimal balance;
 
-    @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime createdAt;
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static com.fintech.bankingapi.converter.TransactionConverter.convertToDTO;
@@ -28,16 +29,17 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public TransactionDTO createTransaction(TransactionType type, UUID accountId, @Nullable UUID targetAccountId, BigDecimal amount) {
-        Transaction depositTransaction = new Transaction();
-        depositTransaction.setAccount(new Account(accountId));
+        Transaction transaction = new Transaction();
+        transaction.setAccount(new Account(accountId));
         if (nonNull(targetAccountId)) {
-            depositTransaction.setTargetAccount(new Account(targetAccountId));
+            transaction.setTargetAccount(new Account(targetAccountId));
         }
-        depositTransaction.setType(type);
-        depositTransaction.setAmount(amount);
+        transaction.setType(type);
+        transaction.setAmount(amount);
+        transaction.setTimestamp(LocalDateTime.now());
 
-        transactionRepository.save(depositTransaction);
+        Transaction savedTransaction = transactionRepository.save(transaction);
         log.info("{} transaction created for account id {}: amount = {}", type, accountId, amount);
-        return convertToDTO(depositTransaction);
+        return convertToDTO(savedTransaction);
     }
 }

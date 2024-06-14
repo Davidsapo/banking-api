@@ -24,6 +24,8 @@ public class WithdrawOperation extends BankOperation {
     @Transactional
     public TransactionDTO executeOperation(String accountNumber, @Nullable String targetAccountNumber, BigDecimal amount) {
         AccountDTO account = accountService.withdrawBalance(accountNumber, amount);
-        return transactionService.createTransaction(getTransactionType(), account.getId(), null, amount);
+        TransactionDTO transaction = transactionService.createTransaction(getTransactionType(), account.getId(), null, amount);
+        transaction.setAccount(account);
+        return transaction;
     }
 }
